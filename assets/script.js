@@ -12,9 +12,11 @@ var count = 0;
 function getNum() {
   numberOfCharacters = prompt("Enter number of characters for password. \nPlease enter number between 8 and 128.");
   if (isNaN(numberOfCharacters)) {
+    alert("Input must be a number");
     getNum();
   }
   if (numberOfCharacters < 8 || numberOfCharacters > 128) {
+    alert("Input must be a number between 8 and 128");
     getNum();
   }
   if (numberOfCharacters >= 8 && numberOfCharacters <= 128) {
