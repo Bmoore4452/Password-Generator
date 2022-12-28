@@ -5,6 +5,7 @@ var specialCharacters = ["\'", "\"", "!", "#", "$", "%", "&", "(", ")", "*", "+"
 var passwordPool = [];
 var newPassword = "";
 var numberOfCharacters = "";
+var count = 0;
 
 // Prompts the user to enter a number of chracters for their password 
 
@@ -17,9 +18,17 @@ function getNum() {
     getNum();
   }
   if (numberOfCharacters >= 8 && numberOfCharacters <= 128) {
-    passwordPool = num;
+    return numberOfCharacters
   }
-  return numberOfCharacters
+}
+
+function addNum() {
+  var useNum = "Do you want numbers?\n Click OK for Yes\n Click Cancel for No"
+  if (confirm(useNum)) {
+    passwordPool = passwordPool.concat(num)
+  } else {
+    count += 1;
+  }
 }
 
 // Asks the user to confirm if they want lowercase letters to be included in the password
@@ -28,6 +37,8 @@ function getLow() {
   var lowLetters = "Do you want lowercase letters?\n Click OK for Yes\n Click Cancel for No"
   if (confirm(lowLetters)) {
     passwordPool = passwordPool.concat(lowerCase);
+  } else {
+    count += 1;
   }
 }
 
@@ -37,6 +48,8 @@ function getHigh() {
   var upLetters = "Do you want uppercase letters?\n Click OK for Yes\n Click Cancel for No"
   if (confirm(upLetters)) {
     passwordPool = passwordPool.concat(upperCase);
+  } else {
+    count += 1;
   }
 }
 
@@ -46,6 +59,8 @@ function getSpec() {
   var specChar = "Do you want special characters?\n Click OK for Yes\n Click Cancel for No"
   if (confirm(specChar)) {
     passwordPool = passwordPool.concat(specialCharacters);
+  } else {
+    count += 1;
   }
 }
 
@@ -63,12 +78,23 @@ function randomizeNum() {
 
 function generatePassword() {
   newPassword = "";
+  count = 0;
   getNum();
+  addNum();
   getLow();
   getHigh();
   getSpec();
-  randomizeNum();
+  if (count < 4) {
+    randomizeNum();
+  } else {
+    alert("Please select at least one condition")
+    numberOfCharacters = "";
+    passwordPool = [];
+    count = 0;
+    generatePassword();
+  }
 
+  passwordPool = [];
   return newPassword;
 }
 
